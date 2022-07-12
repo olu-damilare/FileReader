@@ -29,7 +29,7 @@ flush privileges;
 Step 3: cd into the target folder and execute the Java program from the command line as JAR, with the following command-line
 arguments:
 
- `java -cp java-program.jar <absolute/path/to/file> <start-date-time> <duration>`
+ `java -jar DotPay-0.0.1-SNAPSHOT.jar <absolute/path/to/file> <start-date-time> <duration>`
 
 
 Duration is either hourly or daily. 
