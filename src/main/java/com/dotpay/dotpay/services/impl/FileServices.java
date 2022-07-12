@@ -34,6 +34,19 @@ public class FileServices {
     public void loadUserAccessFileToDB(String... args){
         final String fileDateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
         DateTimeFormatter format = DateTimeFormatter.ofPattern(fileDateFormat);
+        Duration duration = null;
+        int limit = 0;
+
+        if(args[2].equalsIgnoreCase("Hourly")){
+            duration = Duration.HOURLY;
+            limit = 200;
+        }else if(args[2].equalsIgnoreCase("Daily")){
+            duration = Duration.DAILY;
+            limit = 500;
+        }else{
+            throw new RuntimeException("Invalid duration. Duration must be either hourly or daily.");
+
+        }
 
         try (InputStream is = new URL(args[0]).openStream()){
             loadDataToUserAccessLogTable(format, is);
@@ -45,18 +58,7 @@ public class FileServices {
             value provided by the user.
          */
 
-        Duration duration = null;
-        int limit = 0;
-        if(args[2].equalsIgnoreCase("Hourly")){
-            duration = Duration.HOURLY;
-            limit = 200;
-        }else if(args[2].equalsIgnoreCase("Daily")){
-            duration = Duration.DAILY;
-            limit = 500;
-        }else{
-            throw new RuntimeException("Invalid duration. Duration must be either hourly or daily.");
 
-        }
 
         initiateBlockIPRequest(duration, limit, args);
     }
